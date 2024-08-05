@@ -11,13 +11,13 @@ namespace InventoryMng.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public async Task <IActionResult>Login()
         {
             return View();  
         }
 
         [HttpPost]
-        public IActionResult Login(LoginModel login)
+        public async Task <IActionResult> Login(LoginModel login)
         {
 
            return View(); 
