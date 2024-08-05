@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using InventoryMng.Models;
 
 namespace InventoryMng.Controllers
 {
@@ -8,9 +9,18 @@ namespace InventoryMng.Controllers
         {
             return View();
         }
+
+        [HttpGet]
         public IActionResult Login()
         {
             return View();  
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginModel login)
+        {
+
+           return View(); 
         }
     }
 }
