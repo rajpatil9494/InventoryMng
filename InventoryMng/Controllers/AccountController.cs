@@ -27,5 +27,11 @@ namespace InventoryMng.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Register(LoginModel loginModel)
+        {
+            return View();
+        }
     }
 }
