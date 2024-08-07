@@ -1,8 +1,18 @@
-﻿namespace InventoryMng.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace InventoryMng.Models
 {
     public class LoginModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        [Key]
+        [Required(ErrorMessage ="Please Enter Email")]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage ="Please Enter Password")]
+        [DataType(DataType.Password)]   
+        public string Password { get; set; }
+
+        public bool RememberMe { get; set; }    
     }
 }
