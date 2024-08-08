@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InventoryMng.Migrations
 {
     /// <inheritdoc />
-    public partial class table : Migration
+    public partial class myfirstk : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +48,51 @@ namespace InventoryMng.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LoginModel",
+                columns: table => new
+                {
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RememberMe = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LoginModel", x => x.Email);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "productMasters",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "date", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_productMasters", x => x.ProductId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RegisterModel",
+                columns: table => new
+                {
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegisterModel", x => x.Email);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,6 +201,30 @@ namespace InventoryMng.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "rateMasters",
+                columns: table => new
+                {
+                    RateId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Rate = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    FromDate = table.Column<DateTime>(type: "date", nullable: false),
+                    ToDate = table.Column<DateTime>(type: "date", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "date", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_rateMasters", x => x.RateId);
+                    table.ForeignKey(
+                        name: "FK_rateMasters_productMasters_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "productMasters",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -194,6 +263,11 @@ namespace InventoryMng.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_rateMasters_ProductId",
+                table: "rateMasters",
+                column: "ProductId");
         }
 
         /// <inheritdoc />
@@ -215,10 +289,22 @@ namespace InventoryMng.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "LoginModel");
+
+            migrationBuilder.DropTable(
+                name: "rateMasters");
+
+            migrationBuilder.DropTable(
+                name: "RegisterModel");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "productMasters");
         }
     }
 }
