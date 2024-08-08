@@ -21,6 +21,10 @@ namespace InventoryMng
 
             services.AddScoped<IUserAccount, AccountBusinessLogic>();
 
+            services.AddScoped<IProduct,ProductBusinessLogic>();   
+
+            services.AddScoped<IEnquiry,EnquiryBussinessLogic>();
+
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<LoginDbContext>();
 
