@@ -13,6 +13,7 @@ namespace InventoryMng.Data
         public DbSet<InventoryMng.Models.LoginModel> LoginModel { get; set; } = default!;
         public DbSet<InventoryMng.Models.RegisterModel> RegisterModel { get; set; } = default!;
 
-         
+         public DbSet<ProductMaster>productMasters { get; set; } 
+         public DbSet<RateMaster>rateMasters { get; set; }
     }
 }
